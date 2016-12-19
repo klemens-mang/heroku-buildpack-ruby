@@ -2,6 +2,7 @@
 
 if [ -f "$1/Gemfile" ]; then
   echo "Ruby"
+  echo "this dir path $1"
   echo "lib path $LIBRARY_PATH"
   echo "dir contents"
   ls -la
