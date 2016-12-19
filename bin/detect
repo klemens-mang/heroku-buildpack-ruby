@@ -5,7 +5,7 @@ if [ -f "$1/Gemfile" ]; then
   echo "this dir path $1"
   echo "lib path $LIBRARY_PATH"
   echo "dir contents"
-  ls -la
+  ls -la $1
   exit 0
 else
   echo "no"
