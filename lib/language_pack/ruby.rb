@@ -548,6 +548,7 @@ ERROR
 
   def slug_vendor_path
     "#{build_path}/.heroku/vendor"
+  end
 
   # remove `vendor/bundle` that comes from the git repo
   # in case there are native ext.
@@ -630,7 +631,7 @@ WARNING
             "CPATH"                         => noshellescape("#{vendor_include}:#{yaml_include}:$CPATH"),
             "CPPATH"                        => noshellescape("#{vendor_include}:#{yaml_include}:$CPPATH"),
             "LIBRARY_PATH"                  => noshellescape("#{vendor_lib}:#{yaml_lib}:$LIBRARY_PATH"),
-            "LD_LIBRARY_PATH"                  => noshellescape("#{vendor_lib}:#{yaml_lib}:$LD_LIBRARY_PATH"),
+            "LD_LIBRARY_PATH"               => noshellescape("#{vendor_lib}:#{yaml_lib}:$LD_LIBRARY_PATH"),
             "RUBYOPT"                       => syck_hack,
             "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true"
           }
