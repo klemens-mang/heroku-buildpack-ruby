@@ -2,20 +2,6 @@
 
 if [ -f "$1/Gemfile" ]; then
   echo "Ruby"
-  echo "this dir path $1"
-  echo "lib path $LIBRARY_PATH"
-
-  echo "dir contents"
-  ls -la $1
-
-  echo "Setting env variables"
-  export LIBRARY_PATH=$1/.heroku/vendor/lib
-    export LD_LIBRARY_PATH=$1/.heroku/vendor/lib
-    export INCLUDE_PATH=$1/.heroku/vendor/include
-    export C_INCLUDE_PATH=$1/.heroku/vendor/include
-    export CPLUS_INCLUDE_PATH=$1/.heroku/vendor/include
-    echo "CPLUS_INCLUDE_PATH $CPLUS_INCLUDE_PATH"
-  
   exit 0
 else
   echo "no"

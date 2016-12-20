@@ -328,11 +328,11 @@ SHELL
       set_env_default  "LANG",     "en_US.UTF-8"
       set_env_override "GEM_PATH", "$HOME/#{slug_vendor_base}:$GEM_PATH"
       set_env_override "PATH",     binstubs_relative_paths.map {|path| "$HOME/#{path}" }.join(":") + ":$PATH"
-      set_env_override 'LD_LIBRARY_PATH', "#{build_vendor_path}/lib"
-      set_env_override 'LIBRARY_PATH', "#{build_vendor_path}/lib"
-      set_env_override 'INCLUDE_PATH', "#{build_vendor_path}/include"
-      set_env_override 'C_INCLUDE_PATH', "#{build_vendor_path}/include"
-      set_env_override 'CPLUS_INCLUDE_PATH', "#{build_vendor_path}/include"
+      set_env_override 'LD_LIBRARY_PATH', "#{build_vendor_path}/lib:#{slug_vendor_path}/lib"
+      set_env_override 'LIBRARY_PATH', "#{build_vendor_path}/lib:#{slug_vendor_path}/lib"
+      set_env_override 'INCLUDE_PATH', "#{build_vendor_path}/include:#{slug_vendor_path}/include"
+      set_env_override 'C_INCLUDE_PATH', "#{build_vendor_path}/include:#{slug_vendor_path}/include"
+      set_env_override 'CPLUS_INCLUDE_PATH', "#{build_vendor_path}/include:#{slug_vendor_path}/include"
 
       add_to_profiled set_default_web_concurrency if env("SENSIBLE_DEFAULTS")
 
@@ -618,6 +618,8 @@ WARNING
         Dir.mktmpdir("libyaml-") do |tmpdir|
           vendor_include   = "#{build_vendor_path}/include"
           vendor_lib       = "#{build_vendor_path}/lib"
+          slug_vendor_include = "#{slug_vendor_path}/include"
+          slug_vendor_lib = "#{slug_vendor_path}/lib"
 
           libyaml_dir = "#{tmpdir}/#{LIBYAML_PATH}"
           install_libyaml(libyaml_dir)
@@ -632,10 +634,10 @@ WARNING
           env_vars       = {
             "BUNDLE_GEMFILE"                => "#{pwd}/Gemfile",
             "BUNDLE_CONFIG"                 => "#{pwd}/.bundle/config",
-            "CPATH"                         => noshellescape("#{vendor_include}:#{slug_vendor_path}:#{yaml_include}:$CPATH"),
-            "CPPATH"                        => noshellescape("#{vendor_include}:#{slug_vendor_path}:#{yaml_include}:$CPPATH"),
-            "LIBRARY_PATH"                  => noshellescape("#{vendor_lib}:#{slug_vendor_path}:#{yaml_lib}:$LIBRARY_PATH"),
-            "LD_LIBRARY_PATH"               => noshellescape("#{vendor_lib}:#{slug_vendor_path}:#{yaml_lib}:$LD_LIBRARY_PATH"),
+            "CPATH"                         => noshellescape("#{vendor_include}:#{slug_vendor_include}:#{yaml_include}:$CPATH"),
+            "CPPATH"                        => noshellescape("#{vendor_include}:#{slug_vendor_include}:#{yaml_include}:$CPPATH"),
+            "LIBRARY_PATH"                  => noshellescape("#{vendor_lib}:#{slug_vendor_lib}:#{yaml_lib}:$LIBRARY_PATH"),
+            "LD_LIBRARY_PATH"               => noshellescape("#{vendor_lib}:#{slug_vendor_lib}:#{yaml_lib}:$LD_LIBRARY_PATH"),
             "RUBYOPT"                       => syck_hack,
             "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true"
           }
